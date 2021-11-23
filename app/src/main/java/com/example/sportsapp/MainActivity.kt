@@ -18,6 +18,20 @@ import okhttp3.*
 import org.json.JSONObject
 import org.json.JSONTokener
 import java.io.IOException
+import android.util.Log
+
+import android.graphics.BitmapFactory
+
+import android.graphics.Bitmap
+
+import java.io.InputStream
+
+import java.net.HttpURLConnection
+
+import java.net.URL
+
+
+
 
 class MainActivity : AppCompatActivity() {
     private var viewManager = LinearLayoutManager(this)
@@ -47,6 +61,7 @@ class MainActivity : AppCompatActivity() {
         searchBar.setOnKeyListener(View.OnKeyListener{ v, keyCode, event ->
             if (keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_UP){
                 addData()
+                mainRecycler.adapter?.notifyDataSetChanged()
                 return@OnKeyListener true
             }
             false
@@ -71,14 +86,14 @@ class MainActivity : AppCompatActivity() {
                     val league = jsonArray.getJSONObject(i).getString("strLeague")
                     val country = jsonArray.getJSONObject(i).getString("strCountry")
                     val description = jsonArray.getJSONObject(i).getString("strDescriptionEN")
+                    val imageLink = jsonArray.getJSONObject(i).getString("strTeamBadge")
 
-                    var info = Information(teamName, league, country, year, description)
+                    //convert url to bitmap
+                    val imageBitmap = getBitmapFromURL(imageLink) as Bitmap
+
+                    var info = Information(teamName, league, country, year, description, imageBitmap)
 
                     viewModel.add(info)
-
-                    searchBar.text.clear()
-
-                    mainRecycler.adapter?.notifyDataSetChanged()
 
                     println("TEAM NAME: $teamName")
                     println("YEAR FORMED: $year")
@@ -97,7 +112,7 @@ class MainActivity : AppCompatActivity() {
 
     fun observeData() {
         viewModel.lst.observe(this, Observer {
-            println("DATA: $it")
+//            println("DATA: $it")
             mainRecycler.adapter = RecyclerAdapter(viewModel, it, this)
         })
     }
@@ -146,5 +161,20 @@ class MainActivity : AppCompatActivity() {
         }
 
         return urlTail
+    }
+
+    fun getBitmapFromURL(src: String?): Bitmap? {
+        return try {
+            val url = URL(src)
+            val connection = url.openConnection() as HttpURLConnection
+            connection.doInput = true
+            connection.connect()
+            val input = connection.inputStream
+            val myBitmap = BitmapFactory.decodeStream(input)
+            myBitmap
+        } catch (e: IOException) {
+            e.printStackTrace()
+            null
+        }
     }
 }

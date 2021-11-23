@@ -10,6 +10,6 @@ class MainViewModel: ViewModel() {
 
     fun add(info: Information){
         newList.add(info)
-        lst.value = newList
+        lst.postValue(newList)
     }
 }

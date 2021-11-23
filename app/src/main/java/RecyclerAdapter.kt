@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
@@ -40,6 +41,7 @@ class RecyclerAdapter(val viewModel: MainViewModel, val arrayList: ArrayList<Inf
             binding.findViewById<TextView>(R.id.subTitleOne).text = info.subTitleOne
             binding.findViewById<TextView>(R.id.subTitleTwo).text = info.subTitleTwo
             binding.findViewById<TextView>(R.id.subTitleThree).text = info.subTitleThree
+            binding.findViewById<ImageView>(R.id.image).setImageBitmap(info.image)
         }
     }
 }
