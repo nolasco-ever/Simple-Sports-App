@@ -11,7 +11,7 @@
         android:id="@+id/imageView"
         android:layout_width="236dp"
         android:layout_height="70dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -29,26 +29,32 @@
         android:paddingStart="23dp"
         android:textAlignment="textStart"
         android:textColor="@color/black"
+        android:textColorHint="#41000000"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView"
         tools:ignore="TouchTargetSizeCheck,TextContrastCheck" />
 
-    <ScrollView
+    <TextView
+        android:id="@+id/resultsTextView"
         android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text='Showing results for "barcelona"'
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/searchBar" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler"
+        android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="39dp"
+        android:layout_marginTop="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/searchBar">
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="39dp" />
-    </ScrollView>
+        app:layout_constraintTop_toBottomOf="@+id/resultsTextView" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

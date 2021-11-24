@@ -8,5 +8,6 @@ data class Information(
     var subTitleTwo: String,
     var subTitleThree: String,
     var description: String,
-    var image: Bitmap
+    var image: Bitmap,
+    var teamPageUrl: String
 )

@@ -12,4 +12,8 @@ class MainViewModel: ViewModel() {
         newList.add(info)
         lst.postValue(newList)
     }
+
+    fun clear(){
+        newList.clear()
+    }
 }
