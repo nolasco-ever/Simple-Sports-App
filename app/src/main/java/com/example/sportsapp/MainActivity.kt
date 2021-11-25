@@ -4,6 +4,7 @@ import Model.Information
 import RecyclerAdapter
 import ViewModel.MainViewModel
 import ViewModel.MainViewModelFactory
+import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.KeyEvent
@@ -70,7 +71,7 @@ class MainActivity : AppCompatActivity() {
             if (keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_UP){
                 resultsTextView.visibility = View.VISIBLE
                 userQuery = searchBar.text.toString()
-                resultsTextView.text = "loading..."
+                resultsTextView.text = getString(R.string.loading_results)
                 addData()
                 mainRecycler.adapter?.notifyDataSetChanged()
                 return@OnKeyListener false
@@ -88,16 +89,17 @@ class MainActivity : AppCompatActivity() {
 
         client.newCall(request).enqueue(object : Callback {
             override fun onFailure(call: Call, e: IOException) {}
+            @SuppressLint("SetTextI18n")
             override fun onResponse(call: Call, response: Response){
                 val thisResponse = response.body()?.string()
                 val jsonObject = JSONTokener(thisResponse).nextValue() as JSONObject
 
                 //check if the response is null
                 if (jsonObject.get("teams").toString() == "null"){
-                    resultsTextView.text = "No results found for '$userQuery'"
+                    resultsTextView.text = "${getString(R.string.no_results_found)} '$userQuery'"
                 }
                 else{
-                    resultsTextView.text = "Showing results for '$userQuery'"
+                    resultsTextView.text = "${getString(R.string.showing_results)} '$userQuery'"
                     
                     val jsonArray = jsonObject.getJSONArray("teams")
 
@@ -114,7 +116,7 @@ class MainActivity : AppCompatActivity() {
                         val imageBitmap = getBitmapFromURL(imageLink) as Bitmap
                         val teamPageLink = teamBaseUrl + teamId
 
-                        var info = Information(teamName, league, country, year, description, imageBitmap, teamPageLink)
+                        val info = Information(teamName, league, country, year, description, imageBitmap, teamPageLink)
 
                         viewModel.add(info)
                     }

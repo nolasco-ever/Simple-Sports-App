@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">Sports Database</string>
+    <string name="subtitle_one_placeholder">[Subtitle One]</string>
+    <string name="subtitle_two_placeholder">[Subtitle Two]</string>
+    <string name="subtitle_three_placeholder">[Subtitle Three]</string>
+    <string name="card_title_placeholder">[Title]</string>
+    <string name="description_placeholder">[Description]</string>
+    <string name="read_more">Read More...</string>
+    <string name="loading_results">Loading...</string>
+    <string name="showing_results">Showing results for </string>
+    <string name="no_results_found">No results found for </string>
 </resources>
