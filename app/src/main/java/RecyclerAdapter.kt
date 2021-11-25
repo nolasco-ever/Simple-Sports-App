@@ -22,10 +22,6 @@ import androidx.core.content.ContextCompat
 import androidx.core.content.ContextCompat.startActivity
 import androidx.core.content.ContextCompat.startActivity
 
-
-
-
-
 class RecyclerAdapter(val viewModel: MainViewModel, val arrayList: ArrayList<Information>, val context: Context): RecyclerView.Adapter<RecyclerAdapter.ViewHolder>() {
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -50,6 +46,8 @@ class RecyclerAdapter(val viewModel: MainViewModel, val arrayList: ArrayList<Inf
         return arrayList.size
     }
 
+    //Bind the items to corresponding view resources and display information
+    //set an onCLickListener to animate the expansion of the item.xml card view
     inner class ViewHolder(private val binding: View): RecyclerView.ViewHolder(binding){
         fun bind(info: Information){
             binding.findViewById<TextView>(R.id.title).text = info.title

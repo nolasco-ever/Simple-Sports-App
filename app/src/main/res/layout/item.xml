@@ -47,35 +47,68 @@
             android:theme="@style/titleTextTheme"/>
 
         <TextView
-            android:id="@+id/subTitleOne"
-            android:layout_width="210dp"
+            android:id="@+id/subTitleOneLabel"
+            android:layout_width="wrap_content"
             android:layout_height="15dp"
             android:layout_below="@+id/title"
             android:layout_marginStart="9dp"
             android:layout_marginTop="7dp"
             android:layout_toEndOf="@+id/view"
-            android:text="@string/subtitle_one_placeholder"
-            android:theme="@style/infoTextTheme"/>
+            android:text="League:"
+            android:theme="@style/infoTextTheme" />
 
         <TextView
-            android:id="@+id/subTitleTwo"
-            android:layout_width="210dp"
+            android:id="@+id/subTitleOne"
+            android:layout_width="wrap_content"
+            android:layout_height="15dp"
+            android:layout_below="@+id/title"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="7dp"
+            android:layout_toEndOf="@+id/subTitleOneLabel"
+            android:text="@string/subtitle_one_placeholder"
+            android:theme="@style/infoTextTheme" />
+
+        <TextView
+            android:id="@+id/subTitleTwoLabel"
+            android:layout_width="wrap_content"
             android:layout_height="15dp"
             android:layout_below="@+id/subTitleOne"
             android:layout_marginStart="9dp"
             android:layout_marginTop="5dp"
             android:layout_toEndOf="@+id/view"
+            android:text="Country:"
+            android:theme="@style/infoTextTheme" />
+
+        <TextView
+            android:id="@+id/subTitleTwo"
+            android:layout_width="wrap_content"
+            android:layout_height="15dp"
+            android:layout_below="@+id/subTitleOne"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_toEndOf="@+id/subTitleTwoLabel"
             android:text="@string/subtitle_two_placeholder"
             android:theme="@style/infoTextTheme" />
 
         <TextView
-            android:id="@+id/subTitleThree"
-            android:layout_width="210dp"
+            android:id="@+id/subTitleThreeLabel"
+            android:layout_width="wrap_content"
             android:layout_height="15dp"
             android:layout_below="@+id/subTitleTwo"
             android:layout_marginStart="9dp"
             android:layout_marginTop="5dp"
             android:layout_toEndOf="@+id/view"
+            android:text="Year Formed:"
+            android:theme="@style/infoTextTheme" />
+
+        <TextView
+            android:id="@+id/subTitleThree"
+            android:layout_width="wrap_content"
+            android:layout_height="15dp"
+            android:layout_below="@+id/subTitleTwo"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_toEndOf="@+id/subTitleThreeLabel"
             android:text="@string/subtitle_three_placeholder"
             android:theme="@style/infoTextTheme" />
 

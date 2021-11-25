@@ -9,4 +9,6 @@
     <string name="loading_results">Loading...</string>
     <string name="showing_results">Showing results for </string>
     <string name="no_results_found">No results found for </string>
+    <string name="search_bar_hint">Search by team name...</string>
+    <string name="app_logo_content_desc">App Logo</string>
 </resources>

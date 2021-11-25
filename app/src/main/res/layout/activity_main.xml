@@ -15,7 +15,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/logo" />
+        app:srcCompat="@drawable/logo"
+        android:contentDescription="@string/app_logo_content_desc" />
 
     <EditText
         android:id="@+id/searchBar"
@@ -24,7 +25,7 @@
         android:layout_marginTop="24dp"
         android:background="@drawable/search_bar_bg"
         android:ems="10"
-        android:hint="Search"
+        android:hint="@string/search_bar_hint"
         android:inputType="textPersonName"
         android:paddingStart="23dp"
         android:textAlignment="textStart"
@@ -34,7 +35,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView"
-        tools:ignore="TouchTargetSizeCheck,TextContrastCheck" />
+        tools:ignore="RtlSymmetry,TextContrastCheck,TouchTargetSizeCheck"
+        android:autofillHints="name" />
 
     <TextView
         android:id="@+id/resultsTextView"

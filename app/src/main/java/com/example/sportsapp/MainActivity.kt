@@ -54,19 +54,23 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        //assign view resources to variables
         searchBar = findViewById(R.id.searchBar)
         resultsTextView = findViewById(R.id.resultsTextView)
+        mainRecycler = findViewById(R.id.recycler)
 
+        //results text view is invisible by default
         resultsTextView.visibility = View.INVISIBLE
 
-        mainRecycler = findViewById(R.id.recycler)
-        val application = requireNotNull(this).application
-        val factory = MainViewModelFactory()
-
+        //assign main view model variable
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
 
         initializeAdapter()
 
+        //When user hits enter on their keyboard, run the addData() function
+        //and display the "loading..." string
+        //Also, takes the user's search bar input and assigns it to userQuery variable
+        //to use it in the run() function
         searchBar.setOnKeyListener(View.OnKeyListener{ v, keyCode, event ->
             if (keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_UP){
                 resultsTextView.visibility = View.VISIBLE
@@ -80,6 +84,19 @@ class MainActivity : AppCompatActivity() {
         })
     }
 
+    //run() function clears the view model to prevent showing previous query results
+    //Requests data based on the passed url and converts the response body to a JSON Object
+    //Then, checks if the JSON Object is null. If it is null that means there is no info to show,
+    //so the resultsTextView's text is changed from "loading..." to "No results found for " and the
+    //userQuery variable appended to it
+    //If it is not null, we convert the JSON Object to a JSON Array and the resultsTextView's text
+    //is changed from "loading..." to "Showing results for " and the userQuery variable appended to it
+    //Then, we go through the entire JSON Array and extract the required data (team id, name, year formed,
+    //league, country, description, and badge
+    //We check to see if year = "0" and if so, change the year variable to "N/A" b/c there is no year to show
+    //We convert imageLink to imageBitmap and append team Id to teamBaseUrl to create a link that
+    //navigates the user to the team's page to get more info
+    //Then we add the info to the view model
     private fun run(url: String) {
         viewModel.clear()
 
@@ -106,14 +123,19 @@ class MainActivity : AppCompatActivity() {
                     for (i in 0 until jsonArray.length()){
                         val teamId = jsonArray.getJSONObject(i).getString("idTeam")
                         val teamName = jsonArray.getJSONObject(i).getString("strTeam")
-                        val year = jsonArray.getJSONObject(i).getString("intFormedYear")
+                        var year = jsonArray.getJSONObject(i).getString("intFormedYear")
                         val league = jsonArray.getJSONObject(i).getString("strLeague")
                         val country = jsonArray.getJSONObject(i).getString("strCountry")
                         val description = jsonArray.getJSONObject(i).getString("strDescriptionEN")
                         val imageLink = jsonArray.getJSONObject(i).getString("strTeamBadge")
 
+                        if (year == "0"){
+                            year = "N/A"
+                        }
+
                         //convert url to bitmap
                         val imageBitmap = getBitmapFromURL(imageLink) as Bitmap
+
                         val teamPageLink = teamBaseUrl + teamId
 
                         val info = Information(teamName, league, country, year, description, imageBitmap, teamPageLink)
@@ -125,19 +147,24 @@ class MainActivity : AppCompatActivity() {
         })
     }
 
+    //function assigns a view manager to the recycler view in our activity
     private fun initializeAdapter() {
         mainRecycler.layoutManager = viewManager
         observeData()
     }
 
-    fun observeData() {
+    //function looks for any changes in the view model and then
+    // sends those changes to our recycler adapter
+    private fun observeData() {
         viewModel.lst.observe(this, Observer {
-//            println("DATA: $it")
             mainRecycler.adapter = RecyclerAdapter(viewModel, it, this)
         })
     }
 
-    fun addData(){
+    //takes the user's input in the search bar and converts it to the proper format (see: createUrlTail function)
+    //to append it to the base url
+    //The new string is then passed to the run() function and the search bar is cleared
+    private fun addData(){
         var searchQuery = searchBar.text.toString()
 
         if (searchQuery.isNullOrBlank()){
