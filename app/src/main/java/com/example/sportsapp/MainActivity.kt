@@ -126,11 +126,14 @@ class MainActivity : AppCompatActivity() {
                         var year = jsonArray.getJSONObject(i).getString("intFormedYear")
                         val league = jsonArray.getJSONObject(i).getString("strLeague")
                         val country = jsonArray.getJSONObject(i).getString("strCountry")
-                        val description = jsonArray.getJSONObject(i).getString("strDescriptionEN")
+                        var description = jsonArray.getJSONObject(i).getString("strDescriptionEN")
                         val imageLink = jsonArray.getJSONObject(i).getString("strTeamBadge")
 
                         if (year == "0"){
                             year = "N/A"
+                        }
+                        else if (description == "null"){
+                            description = "No description found"
                         }
 
                         //convert url to bitmap
